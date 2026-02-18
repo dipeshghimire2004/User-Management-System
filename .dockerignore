@@ -1,0 +1,28 @@
+# Gradle build output
+# Reason: Don't copy build artifacts to Docker context (we build inside container)
+build/
+.gradle/
+
+.idea/
+*.iml
+*.iws
+*.ipr
+
+.git/
+.gitignore
+.gitattributes
+
+*.md
+HELP.md
+
+out/
+target/
+
+.DS_Store
+Thumbs.db
+
+Dockerfile
+docker-compose.yml
+docker-compose.yaml
+.dockerignore
+.env

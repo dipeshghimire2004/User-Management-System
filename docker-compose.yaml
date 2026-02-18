@@ -1,0 +1,39 @@
+services:
+  user-management:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: user_management
+    restart: always
+    env_file:
+      - .env
+    networks:
+      - user_management_network
+    ports:
+      - "${APP_PORT_EXPOSE}:8080"
+    depends_on:
+      - mysql_db
+
+  mysql_db:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: usermanagement
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: mysql
+    ports:
+      - "${MYSQL_PORT_EXPOSE}:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - user_management_network
+
+volumes:
+  mysql_data:
+
+networks:
+  user_management_network:
+    driver: bridge
+
