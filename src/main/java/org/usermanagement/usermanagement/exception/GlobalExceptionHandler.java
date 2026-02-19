@@ -6,7 +6,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.context.request.WebRequest;
 import org.usermanagement.usermanagement.dto.ErrorResponse;
 import org.usermanagement.usermanagement.dto.GlobalApiResponse;
 import org.usermanagement.usermanagement.enums.ErrorCode;
@@ -18,26 +17,21 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(BaseException.class)
-    public ResponseEntity<GlobalApiResponse<ErrorResponse>> handleBaseException(
-            BaseException ex, WebRequest request) {
+    public ResponseEntity<GlobalApiResponse<ErrorResponse>> handleBaseException(BaseException ex) {
         
         ErrorResponse errorResponse = new ErrorResponse(ex.getErrorCode(), ex.getMessage());
-        return ResponseEntity.status(ex.getErrorCode().getHttpStatus())
-                .body(GlobalApiResponse.error(errorResponse, ex.getMessage()));
+        return ResponseEntity.status(ex.getErrorCode().getHttpStatus()).body(GlobalApiResponse.error(errorResponse, ex.getMessage()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<GlobalApiResponse<Map<String, String>>> handleValidationExceptions(
-            MethodArgumentNotValidException ex, WebRequest request) {
+    public ResponseEntity<GlobalApiResponse<Map<String, String>>> handleValidationExceptions(MethodArgumentNotValidException ex) {
 
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = error instanceof FieldError ?
-                    ((FieldError) error).getField() : error.getObjectName();
+            String fieldName = error instanceof FieldError ? ((FieldError) error).getField() : error.getObjectName();
 
-            // Handle nested validation errors (e.g., data.firstName)
             if (fieldName.startsWith("data.")) {
-                fieldName = fieldName.substring(5); // Remove "data." prefix
+                fieldName = fieldName.substring(5);
             }
 
             String errorMessage = error.getDefaultMessage();
@@ -49,14 +43,8 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<GlobalApiResponse<ErrorResponse>> handleGlobalException(
-            Exception ex, WebRequest request) {
-        
-        ErrorResponse errorResponse = new ErrorResponse(
-            ErrorCode.INTERNAL_SERVER_ERROR, 
-            ex.getMessage()
-        );
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(GlobalApiResponse.error(errorResponse, ex.getMessage()));
+    public ResponseEntity<GlobalApiResponse<ErrorResponse>> handleGlobalException(Exception ex) {
+        ErrorResponse errorResponse = new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR, ex.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(GlobalApiResponse.error(errorResponse, ex.getMessage()));
     }
 }
