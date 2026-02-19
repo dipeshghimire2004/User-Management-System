@@ -62,8 +62,6 @@ The system uses MySQL 8.0 with the following configuration:
 The `docker-compose.yaml` file configures:
 - MySQL 8.0 container with persistent storage
 - Automatic database creation (`usermanagement`)
-- Separate application user with appropriate permissions
-- Health checks to ensure database readiness
 
 ### Application Configuration
 Environment variables in `.env` control:
