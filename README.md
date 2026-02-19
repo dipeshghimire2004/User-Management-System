@@ -82,9 +82,9 @@ Content-Type: application/json
 
 {
   "data": {
-    "firstName": "John",
-    "lastName": "Doe",
-    "email": "john@example.com",
+    "firstName": "Dipesh",
+    "lastName": "Ghimire",
+    "email": "dipesh@example.com",
     "phoneNumber": "+1234567890"
   }
 }
@@ -233,7 +233,7 @@ You can test the API using curl or any HTTP client:
 # Create a user
 curl -X POST http://localhost:8080/v/api/users \
   -H "Content-Type: application/json" \
-  -d '{"data": {"firstName": "John", "lastName": "Doe", "email": "john@example.com"}}'
+  -d '{"data": {"firstName": "Dipesh", "lastName": "Ghimire", "email": "dipesh@example.com"}}'
 
 # Get user list with pagination
 curl -X GET "http://localhost:8080/v/api/users?page=0&size=10"
