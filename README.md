@@ -6,6 +6,40 @@ A Spring Boot-based RESTful API for managing users with comprehensive CRUD opera
 
 This is a production-ready user management system that demonstrates clean architecture, proper exception handling, and scalable API design. The system provides full user lifecycle management with features like soft delete, auditing, validation, and consistent API responses.
 
+## Quick Setup
+
+### Prerequisites
+- Java 21 or later
+- Docker and Docker Compose
+- Gradle (optional, wrapper included)
+
+### Setup Instructions
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd UserManagement
+   ```
+
+2. **Configure environment variables**
+   ```bash
+   # Copy the template file
+   cp .env.template .env
+   
+   # Edit .env if needed (default values work for Docker setup)
+   ```
+
+3. **Start the application with Docker**
+   ```bash
+   docker-compose -f docker-compose.yaml up --build
+   ```
+
+4. **Access the application**
+   - Application: http://localhost:8080
+   - MySQL Database: localhost:3307
+
+That's it! The application is now running and ready to use.
+
 ## Technology Stack
 
 - **Java 21** with Spring Boot 3.4.2
@@ -22,6 +56,17 @@ This is a production-ready user management system that demonstrates clean archit
 - Java 21 or later
 - Docker and Docker Compose
 - Gradle (optional, wrapper included)
+
+### Environment Configuration
+
+The application uses environment variables for configuration. A template file is provided:
+
+1. Copy the template file:
+   ```bash
+   cp .env.template .env
+   ```
+
+2. Review and modify `.env` if needed. Default values are configured for Docker setup.
 
 ### Quick Start with Docker
 
@@ -42,13 +87,15 @@ docker-compose -f docker-compose.yaml down
 
 If you prefer to run without Docker:
 
-```bash
-# Build the project
-./gradlew build
-
-# Run the application
-./gradlew bootRun
-```
+1. Ensure MySQL is running locally
+2. Update `.env` with your local database configuration:
+   ```env
+   SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/usermanagement
+   ```
+3. Run the application:
+   ```bash
+   ./gradlew bootRun
+   ```
 
 ### Access Points
 - Application: http://localhost:8080
@@ -320,6 +367,14 @@ docker-compose -f docker-compose.yaml exec mysql_db mysql -u mysql -pmysql userm
 ## Configuration
 
 ### Environment Variables
+
+The application is configured using environment variables defined in the `.env` file. A template file (`.env.template`) is provided with all required variables and their descriptions.
+
+**Important**: Copy `.env.template` to `.env` before running the application:
+```bash
+cp .env.template .env
+```
+
 Key environment variables in `.env`:
 
 - `APP_PORT_EXPOSE`: Application port (default: 8080)
@@ -386,3 +441,17 @@ While this implementation is production-ready in terms of architecture, several 
 This User Management System demonstrates modern Java development practices with Spring Boot. It showcases clean architecture, proper exception handling, consistent API design, and production-ready features like soft delete and auditing. The Docker-based deployment makes it easy to run in any environment, and the modular design allows for easy extension and maintenance.
 
 The project is designed to be both a functional system and a demonstration of best practices in Spring Boot development.
+
+## Project Structure for Review
+
+When reviewing this project, you'll find:
+- **Source Code**: Well-organized in `src/main/java`
+- **Tests**: Comprehensive unit tests in `src/test/java`
+- **Configuration**: `.env.template` for environment setup
+- **Docker**: `Dockerfile` and `docker-compose.yaml` for containerization
+- **Documentation**: This README with complete setup and usage instructions
+
+To run the project, simply:
+1. Copy `.env.template` to `.env`
+2. Run `docker-compose -f docker-compose.yaml up --build`
+3. Access the API at http://localhost:8080
