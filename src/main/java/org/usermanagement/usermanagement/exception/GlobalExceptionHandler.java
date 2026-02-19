@@ -7,6 +7,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
+import org.usermanagement.usermanagement.dto.ErrorResponse;
 import org.usermanagement.usermanagement.dto.GlobalApiResponse;
 import org.usermanagement.usermanagement.enums.ErrorCode;
 

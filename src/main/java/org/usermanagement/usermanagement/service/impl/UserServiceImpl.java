@@ -28,8 +28,7 @@ public class UserServiceImpl implements UserService
     @Transactional
     public UserDto createUser(UserDto userDto) {
         log.info("Create a new user");
-        
-        // Check if email already exists
+
         if (userRepository.existsByEmail(userDto.getEmail())) {
             throw new DuplicateEntityException("User already exists with email: " + userDto.getEmail());
         }
@@ -72,12 +71,11 @@ public class UserServiceImpl implements UserService
         userRepository.delete(user);
     }
 
-    private UserEntity findUserById(UUID userId)
-    {
+    private UserEntity findUserById(UUID userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
-
     }
+
 }
 
 

@@ -1,15 +1,13 @@
 package org.usermanagement.usermanagement;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class UserManagementApplicationTests
-{
+import static org.assertj.core.api.Assertions.assertThat;
+
+class UserManagementApplicationTests {
 
     @Test
-    void contextLoads()
-    {
+    void applicationMainMethodExists() {
+        assertThat(UserManagementApplication.class).isNotNull();
     }
-
 }

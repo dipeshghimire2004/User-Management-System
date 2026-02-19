@@ -1,4 +1,4 @@
-package org.usermanagement.usermanagement.exception;
+package org.usermanagement.usermanagement.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

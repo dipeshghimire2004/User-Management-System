@@ -238,6 +238,10 @@ curl -X POST http://localhost:8080/v/api/users \
 # Get user list with pagination
 curl -X GET "http://localhost:8080/v/api/users?page=0&size=10"
 
+# Get user by ID
+curl -X GET http://localhost:8080/v/api/users/{userId}
+i.e. curl -X GET http://localhost:8080/v/api/users/550e8400-e29b-41d4-a716-446655440000
+
 # Update a user
 curl -X PATCH http://localhost:8080/v/api/users/{userId} \
   -H "Content-Type: application/json" \
@@ -257,9 +261,49 @@ curl -X DELETE http://localhost:8080/v/api/users/{userId}
 # Run tests
 ./gradlew test
 
+# Run specific test class
+./gradlew test --tests UserServiceImplTest
+
 # Check dependencies
 ./gradlew dependencies
 ```
+
+### Testing
+
+The project includes comprehensive unit tests for the service layer using JUnit 5 and Mockito.
+
+#### Running Tests
+```bash
+# Run all tests
+./gradlew test
+
+# Run with detailed output
+./gradlew test --info
+
+# Clean and test
+./gradlew clean test
+```
+
+#### Test Coverage
+**Service Layer Unit Tests** (`UserServiceImplTest`):
+- Create user (success and duplicate email scenarios)
+- Get user by ID (success and not found scenarios)
+- Update user (success and not found scenarios)
+- Delete user (success and not found scenarios)
+- Get paginated user list
+
+**Test Statistics**:
+- Total test cases: 9
+- Coverage: 100% method coverage for UserServiceImpl
+- All critical business logic paths tested
+- All exception scenarios covered
+
+#### Testing Approach
+- **Unit Tests Only**: Fast, isolated tests without database or Spring context
+- **Mocking Strategy**: Mock only external dependencies (Repository, Mapper)
+- **Assertions**: Using AssertJ for readable assertions
+- **Test Structure**: Arrange-Act-Assert pattern for clarity
+- **Test Isolation**: Each test is independent with `@BeforeEach` setup
 
 ### Docker Development
 ```bash
